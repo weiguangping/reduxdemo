@@ -1,20 +1,27 @@
-import React from "react";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
-import login from './page/login';
-import Dashboard from './page/Dashboard';
-import Error from './page/error';
-export default class jspang extends React.Component {
+import React from 'react';
+import {connect} from 'react-redux'
+import { Router} from "react-router-dom";
+import {login,logout,initAuth} from './reducer/Auth.redux'
+import Root1 from './root1'
+import Root2 from './root2'
+import './css/common.css'
+class jspang extends React.Component {
+  componentWillMount(){
+    console.log('111');
+    this.props.initAuth()
+  }
   render() {
+    let root=this.props.isAuth?<Root2></Root2>:<Root1></Root1>
     return (
-      <Router>
-        <div>
-          <Switch>
-            <Route exact path="/" component={login} />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route component={login} />
-          </Switch>
-        </div>
-      </Router>
+      <React.Fragment>
+        {root}
+      </React.Fragment>
     );
   }
 }
+const mapStatetoProps=(state)=>{
+  return state.auth
+}
+const actionCreators={login,logout,initAuth}
+jspang=connect(mapStatetoProps,actionCreators)(jspang)
+export default jspang

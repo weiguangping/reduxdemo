@@ -1,22 +1,17 @@
-
 import React from "react";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
-import Nav from './nav';
-import Jspang from './page/jsping';
-import Jspangb from './page/jspingb';
-import Jspangc from './page/jspingc';
+import { HashRouter as Router, Route, Switch ,Redirect} from "react-router-dom";
+import login from './page/login';
+import Dashboard from './page/Dashboard';
 import Error from './page/error';
 export default class jspang extends React.Component {
   render() {
     return (
       <Router>
         <div>
-          <Nav />
           <Switch>
-            <Route exact path="/" component={Jspang} />
-            <Route path="/Jspangb" component={Jspangb} />
-            <Route path="/Jspangc" component={Jspangc} />
-            <Route component={Error} />
+            <Route exact path="/" component={login} />
+            <Route exact path="/login" component={login} />
+            <Redirect to='/' />
           </Switch>
         </div>
       </Router>

@@ -1,17 +1,27 @@
 
 import React from 'react';
-import {connect} from 'redux-thunk'
-import {login,logout} from './../Auth.redux'
-class App extends React.Component{
+import {connect} from 'react-redux'
+import {login,logout} from './../reducer/Auth.redux'
+import { Redirect } from "react-router-dom";
+class Auth extends React.Component{
+    login(){
+        this.props.login({name:'11',typed:'main',data:1})
+        console.log(this.props);
+        
+    }
     render(){
         return(
-            <div>登录页面</div>
+            <div>
+            {this.props.auth.isAuth?<Redirect to='/dashboard'></Redirect>:null}
+                <div>登录页面</div>
+                <button onClick={()=>this.login()}>登录</button>
+            </div>
         );
     }
 }
 const mapStatetoProps=(state)=>{
-  return{num:state}
+  return {auth:state}
 }
 const actionCreators={login,logout}
-App=connect(mapStatetoProps,actionCreators)(App)
-export default App
+Auth=connect(mapStatetoProps,actionCreators)(Auth)
+export default Auth

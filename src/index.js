@@ -4,10 +4,10 @@ import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import Root from "./root";
-import { counter } from "./index.redux";
+import reducer from "./reducer/reducer";
 
 const store = createStore(
-  counter,
+  reducer,
   compose(
     applyMiddleware(thunk),
     window.__REDUX_DEVTOOLS_EXTENSION__
@@ -16,14 +16,9 @@ const store = createStore(
   )
 );
 
-// function render() {
-
 ReactDOM.render(
   <Provider store={store}>
     <Root />
   </Provider>,
   document.getElementById("app")
 );
-// }
-// render();
-// store.subscribe(render);
